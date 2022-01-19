@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de cartas</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .grid{
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: auto auto auto;
+            background-color: lightgray;
+            gap: 10px;
+        }
+        .grid>div {
+           height: 200px;
+           margin-left: 50px;
+        }
+        img{
+            height: 200px;
+            width: 200px;
+        }
+        .completo{
+            height: 200px;
+            width: 200px;
+            border: lime solid 5px;
+        }
+    </style>
+ 
+</head>
+<body>
+    <h1>Juego parejas</h1>
+    <div class="contador" id = "punt">Puntuación: 0</div>
+    <div class="grid">
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="1" id="1" onclick="voltear(this)" name="uno">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="2" id="2" onclick="voltear(this)" name="dos">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="3" id="3" onclick="voltear(this)" name="cuatro">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="4" id="4" onclick="voltear(this)" name="uno">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="5" id="5" onclick="voltear(this)" name="cinco">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="6" id="6" onclick="voltear(this)" name="seis">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="7" id="7" onclick="voltear(this)" name="seis">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="8" id="8" onclick="voltear(this)" name="cuatro">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="9" id="9" onclick="voltear(this)" name="dos">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="10" id="10" onclick="voltear(this)" name="tres">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="11" id="11" onclick="voltear(this)" name="cinco">
+        </div>
+        <div class="img">
+            <img src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg" alt="imagen" value="12" id="12" onclick="voltear(this)" name="tres">
+        </div>
+    </div>
+
+    <script>
+        var nombreAnterior = "0";
+        var idAnterior = 0;
+        var contador = 0;
+
+        function voltear(elem){
+            if(elem.id == 1 || elem.id == 4){
+                elem.src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png";
+                comprobar(elem);
+            }
+            if(elem.id == 2 || elem.id == 9){
+                elem.src="https://i.pinimg.com/236x/b0/01/ee/b001ee993f92817482af8a7d77f4b6b0--minecraft-quilt-minecraft-crafts.jpg";
+                comprobar(elem);
+            }
+            if(elem.id == 10 || elem.id == 12){
+                elem.src="https://pbs.twimg.com/profile_images/1364989310370541568/VNfo-lGr_400x400.jpg";
+                comprobar(elem);
+            }
+            if(elem.id == 3 || elem.id == 8){
+                elem.src="https://images3.alphacoders.com/115/thumb-1920-1154129.png";
+                comprobar(elem);
+            }
+            if(elem.id == 11 || elem.id == 5){
+                elem.src="https://i.pinimg.com/236x/5c/dd/b7/5cddb7711c1ce72e2f06f020923865fc--minecraft-quilt-minecraft-bedroom.jpg";
+                comprobar(elem);
+            }
+            if(elem.id == 6 || elem.id == 7){
+                elem.src="https://static.wikia.nocookie.net/minecraftpe/images/b/b1/SheepFace.png/revision/latest/scale-to-width/360?cb=20200529173653&path-prefix=es";
+                comprobar(elem);
+            }
+            
+        }
+
+        function comprobar(elem){
+            if(elem.name == nombreAnterior && elem.id != idAnterior){
+                elem.className = "completo";
+                document.getElementById(idAnterior).className = "completo";               
+                nombreAnterior = "0";
+                idAnterior = 0;
+                contador +=1;
+                document.getElementById("punt").innerHTML="Puntuación "+ contador;
+            }
+            else if(nombreAnterior == "0" && idAnterior == 0){
+                nombreAnterior = elem.name;
+                idAnterior = elem.id;
+            }
+            else if(nombreAnterior != elem.name){
+                document.getElementById(idAnterior).src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg";
+                elem.src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg";
+                nombreAnterior="0";
+                idAnterior=0;
+            }
+            else if(elem.name == nombreAnterior && elem.id == idAnterior){
+                elem.src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg";
+                nombreAnterior="0";
+                idAnterior=0;
+            }
+
+            if(contador==6){
+                alert("Has ganado!!!");
+                contador = 0;
+                document.getElementById("punt").innerHTML="Puntuación "+ contador;
+                for (i=1;i<=12;i++){
+                    document.getElementById(i).src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg"
+                    document.getElementById(i).className = "";
+                }
+            }
+            
+        }
+        
+        
+
+    </script>
+</body>
+</html>

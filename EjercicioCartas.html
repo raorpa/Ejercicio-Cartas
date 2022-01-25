@@ -85,22 +85,27 @@
     </div>
 
     <script>
+        
         var username=prompt("Nombre de usuario");
-        var idioma = getCookie("idioma");
+        var idioma = localStorage.getItem("idioma");
         if (idioma == ""){
             idioma = "ES";
         }
-        var nombreAnterior = "0";
+        var nombreAnterior = "0"; 
         var idAnterior = 0;
         var contador = 0;
         var contadorError = 0;
+        var hscore = localStorage.getItem("score");
+        var huser = localStorage.getItem("username");
+        console.log(hscore);
+
         if(idioma == "ES"){
             document.getElementById("punt").innerHTML= username + " -> Puntuación: "+ contador + " Errores: " + contadorError;
         }
         else{
             document.getElementById("punt").innerHTML= username + " -> Score: "+ contador + " Errores: " + contadorError;
         }
-        document.getElementById("rank").innerHTML= "High Score " + getCookie("username") + " " + getCookie("score");
+        document.getElementById("rank").innerHTML= "High Score " + huser + " " + hscore;
 
         function voltear(elem){
             if(elem.id == 1 || elem.id == 4){
@@ -163,23 +168,24 @@
             if(contador==6){
                 alert("Has ganado!!! \nPuntuación: "+contador+"\nErrores: " + contadorError);
                 
-                var user = getCookie("username");
+                var user = localStorage.getItem("username");
                 if(user == ""){
-                    setCookie("username",username,10);
-                    setCookie("score", contadorError,10);
+                    localStorage.setItem("username",username);
+                    localStorage.setItem("score", contadorError);
                 }
                 else{
-                    if(getCookie("score") >= contadorError){
-                        setCookie("username",username,10);
-                        setCookie("score", contadorError,10);
+                    if(Number(localStorage.getItem("score")) >= contadorError){
+                        localStorage.setItem("username", username);
+                        localStorage.setItem("score", contadorError);
                     }
-                }
+                } 
                 contador = 0;
                 contadorError = 0;
                 for (i=1;i<=12;i++){
                     document.getElementById(i).src="https://i.pinimg.com/originals/fc/ec/1f/fcec1f167e1a454be1024b8e57928ace.jpg"
                     document.getElementById(i).className = "";
                 }
+                
             }
 
             if(idioma == "ES"){
@@ -188,52 +194,18 @@
             else{
                 document.getElementById("punt").innerHTML= username + " -> Score: "+ contador + " Errores: " + contadorError;
             }
-            document.getElementById("rank").innerHTML= "High Score " + getCookie("username") + " " + getCookie("score");
-            }
 
-        function setCookie(cname,cvalue,exdays) {
-            const d = new Date();
-            d.setTime(d.getTime() + (exdays*24*60*60*1000));
-            let expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            }
-
-            function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-            }
-
-            function checkCookie() {
-            let user = getCookie("username");
-            if (user != "") {
-                alert("Welcome again " + user);
-            } else {
-                user = prompt("Please enter your name:","");
-                if (user != "" && user != null) {
-                setCookie("username", user, 30);
-                    }
-                }
-            }
+            document.getElementById("rank").innerHTML= "High Score " + localStorage.getItem("username") + " " + localStorage.getItem("score");
+        }
 
             function ingles(){
                 idioma = "EN";
-                setCookie("idioma", idioma, 30);
+                localStorage.setItem("idioma", idioma);//setCookie("idioma", idioma, 30);
                 document.getElementById("punt").innerHTML= username + " -> Score: "+ contador + " Errores: " + contadorError;
             }
             function espa(){
                 idioma = "ES";
-                setCookie("idioma", idioma, 30);
+                localStorage.setItem("idioma", idioma);//setCookie("idioma", idioma, 30);
                 document.getElementById("punt").innerHTML= username + " -> Puntuación: "+ contador + " Errores: " + contadorError;
             }
     </script>
